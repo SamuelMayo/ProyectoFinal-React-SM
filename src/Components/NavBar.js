@@ -1,6 +1,5 @@
 import logo from '../icons-imgs/logo.png'
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { flexbox } from '@mui/system';
+import CartWidget from './CartWidget'
 
 const NavBar =() =>{
     return(
@@ -14,9 +13,10 @@ const NavBar =() =>{
                 <a style={styles.a} href="">Mujeres</a>
                 <a style={styles.a} href="">Niños</a>
             </nav>
-            <ShoppingCartCheckoutIcon />
-        </header>
 
+            <CartWidget />
+
+        </header>
     )
 }
 

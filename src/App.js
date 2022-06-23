@@ -1,10 +1,16 @@
-import logo from './logo.svg';
+
 import NavBar from './Components/NavBar';
 import './App.css';
+import ItemListContainer from './Components/ItemListContainer'
 
 function App() {
   return (
-    <NavBar />
+    <>
+      <NavBar />
+      <ItemListContainer
+      mensaje="Hola Soy Samuel :)" 
+      />
+    </>
   );
 }
 
