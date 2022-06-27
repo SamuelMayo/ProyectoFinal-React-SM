@@ -1,3 +1,4 @@
+import { height } from '@mui/system'
 import logo from '../icons-imgs/logo.png'
 import CartWidget from './CartWidget'
 
@@ -6,7 +7,7 @@ const NavBar =() =>{
         <header style={styles.container}>
             <div style={styles.titleCont}>
                 <img style={styles.imgLogo} src={logo} alt="Logo" />
-                <h1>VendeLoTuyo.com</h1>
+                <h1 style={styles.h1Logo}>VendeLoTuyo.com</h1>
             </div>
             <nav style={styles.navCont}>
                 <a style={styles.a} href="">Hombres</a>
@@ -27,7 +28,12 @@ const styles ={
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        margin: "0px 30px 0px 30px",
+        padding: "0px 30px 0px 30px",
+        borderBottom:'2px solid lightGray',
+        width:'100%',
+        height:'80px',
+        marginBottom:'25px',
+        overflow:"hidden",
     },
     titleCont:{
         display: 'flex',
@@ -35,6 +41,10 @@ const styles ={
     },
     imgLogo:{
         width: '150px',
+    },
+    h1Logo:{
+        fontSize:'25px',
+        fontWeight:'bold',
     },
     navCont:{
         width: "300px" ,
