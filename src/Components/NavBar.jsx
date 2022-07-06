@@ -1,8 +1,31 @@
 import { height } from '@mui/system'
 import logo from '../icons-imgs/logo.png'
 import CartWidget from './CartWidget'
+import {Link} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
+
 
 const NavBar =() =>{
+
+    const [categories, setCategories]= useState([])
+
+    useEffect(()=>{
+
+        async function categoriesPromise(){
+            try{
+                const response = await fetch('https://api.escuelajs.co/api/v1/categories')
+                const result = await response.json();
+                setCategories(result)
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        categoriesPromise()
+    }, [])
+
+
     return(
         <header style={styles.container}>
             <div style={styles.titleCont}>
@@ -10,9 +33,9 @@ const NavBar =() =>{
                 <h1 style={styles.h1Logo}>VendeLoTuyo.com</h1>
             </div>
             <nav style={styles.navCont}>
-                <a style={styles.a} href="">Hombres</a>
-                <a style={styles.a} href="">Mujeres</a>
-                <a style={styles.a} href="">Niños</a>
+                {categories.map((category)=>{
+                    return <Link key={category.id} style={styles.a} to="#">{category.name}</Link>
+                })}
             </nav>
 
             <CartWidget />

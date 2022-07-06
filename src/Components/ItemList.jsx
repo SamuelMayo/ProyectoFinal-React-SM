@@ -5,14 +5,13 @@ import Item from './Item';
 
 const ItemList = ({products}) => {
 
-    // const [data, setData]= useState(products)
 
     return (
         <div className='w-11/12'>
-            <div className='flex justify-between flex-wrap m-4 gap-3.5'>
+            <div className='flex justify-around flex-wrap m-4 gap-3.5'>
                 {products.map((product)=>{
 
-                    return <Item product={product}/>
+                    return <Item key={product.id} product={product}/>
 
                 })}
             </div>
