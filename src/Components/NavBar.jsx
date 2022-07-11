@@ -29,16 +29,16 @@ const NavBar =() =>{
     return(
         <header style={styles.container}>
             <div style={styles.titleCont}>
-                <img style={styles.imgLogo} src={logo} alt="Logo" />
+                <Link to="/"><img style={styles.imgLogo} src={logo} alt="Logo" /></Link>
                 <h1 style={styles.h1Logo}>VendeLoTuyo.com</h1>
             </div>
             <nav style={styles.navCont}>
                 {categories.map((category)=>{
-                    return <Link key={category.id} style={styles.a} to="#">{category.name}</Link>
+                    return <Link key={category.id} style={styles.a} to={`/category/${category.id}`}>{category.name}</Link>
                 })}
             </nav>
 
-            <CartWidget />
+            <Link to="/cart" ><CartWidget /></Link>
 
         </header>
     )
@@ -70,7 +70,7 @@ const styles ={
         fontWeight:'bold',
     },
     navCont:{
-        width: "300px" ,
+        width: "500px" ,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
