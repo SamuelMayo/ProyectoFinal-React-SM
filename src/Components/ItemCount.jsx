@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
+import { toast, ToastContainer } from 'react-toastify';
 
-const ItemCount = ({stock, initial=1, onAdd}) => {
+const ItemCount = ({stock, initial=1, onAdd, setQuantity}) => {
  
     
     const [cantidad , setCantidad] = useState(initial);
 
     const agg= ()=>{
         cantidad<stock && setCantidad(cantidad+1)
-        cantidad>=stock && alert("Error: No se pueden agregar mas de las unidades disponibles")
+        cantidad>=stock && alert('No puedes agregar mas de lo disponible en stock')
     }
 
     const dis= ()=>{

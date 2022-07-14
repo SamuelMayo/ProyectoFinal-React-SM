@@ -9,6 +9,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}></Route>
 
       </Routes>
-
+      <ToastContainer />
     </BrowserRouter>
   );
 }

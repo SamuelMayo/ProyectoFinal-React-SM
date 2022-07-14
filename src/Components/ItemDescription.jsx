@@ -1,7 +1,21 @@
-import React from 'react'
+import React,{useState} from 'react'
+import ItemCount from './ItemCount'
+import {Link} from 'react-router-dom'
+
 
 const ItemDescription = ({product}) => {
+  
+  const [counter, setCounter] = useState(true)
 
+  const [quantity, setQuantity] = useState(1)
+
+  const [cartlist, setCartlist] = useState([])
+
+  const onAdd = ()=>{
+    setCounter(false)
+    setQuantity()
+    setCartlist([...cartlist, product])
+  }
 
   return (
     
@@ -21,6 +35,8 @@ const ItemDescription = ({product}) => {
                 </ul>
                 
                 <p>{product.description}</p>
+
+                {counter ? <ItemCount onAdd={onAdd} stock={5} setQuantity={setQuantity}/> : <Link to={'/cart'}><button className='w-4/5 bg-blue-600 text-white my-2 rounded-md mt-5'>Terminar Mi compra</button></Link> }
                 
             </div>
         </div>
