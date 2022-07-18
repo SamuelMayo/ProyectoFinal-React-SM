@@ -8,17 +8,35 @@ const ItemCount = ({stock, initial=1, onAdd, setQuantity}) => {
 
     const agg= ()=>{
         cantidad<stock && setCantidad(cantidad+1)
-        cantidad>=stock && alert('No puedes agregar mas de lo disponible en stock')
+        cantidad>=stock && toast('⚠️ No se pueden agregar mas unidades que el stock!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
     }
 
     const dis= ()=>{
             
-        cantidad<=1 && alert("Error: no se puede agregar 0 unidades al carrito")
+        cantidad<=1 && toast('⚠️ No se pueden comprar 0  unidades!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
         cantidad>1 && setCantidad(cantidad-1)
     }
 
-
-
+    const onQtity=()=>{
+        setQuantity(cantidad)
+        onAdd()
+    }
     return (
 
     <div className='w-44 border-2 border-stone-400 rounded-md text-center my-4 mx-6'>
@@ -28,7 +46,7 @@ const ItemCount = ({stock, initial=1, onAdd, setQuantity}) => {
             <p className='text-lg font-bold px-6 py-1.5'>{cantidad}</p>
             <button className='font-bold text-green-500 text-2xl' onClick={agg}>+</button>
         </div>
-        <button className='w-4/5 bg-blue-600 text-white my-2 rounded-md' onClick={onAdd}>Add to Cart</button>
+        <button className='w-4/5 bg-blue-600 text-white my-2 rounded-md' onClick={onQtity}>Add to Cart</button>
     </div>
   )
 }

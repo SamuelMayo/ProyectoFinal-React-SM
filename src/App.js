@@ -9,20 +9,36 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import CartContext from './Components/CartContext.jsx';
 
 function App() {
   return (
     <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<ItemListContainer/>}></Route>
-        <Route path='/category/:categoryId' element={<ItemListContainer/>}></Route>
-        <Route path='/item/:itemId' element={<ItemDescriptionContainer/>}></Route>
-        <Route path='/cart' element={<Cart/>}></Route>
-
-      </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+      {/* Same as */}
       <ToastContainer />
+        <CartContext>
+          <NavBar />
+          <Routes>
+            <Route path='/' element={<ItemListContainer/>}></Route>
+            <Route path='/category/:categoryId' element={<ItemListContainer/>}></Route>
+            <Route path='/item/:itemId' element={<ItemDescriptionContainer/>}></Route>
+            <Route path='/cart' element={<Cart/>}></Route>
+          </Routes>
+        </CartContext>
+        <ToastContainer />
     </BrowserRouter>
   );
 }

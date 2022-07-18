@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const Item = ({product}) => {
 
-    console.log(`El Id es${product.id}`);
   return (
     <Link to={`/item/${product.id}`}>
       <div className='w-60 h-96 m-4 flex flex-col items-center border-2 border-gray-700 rounded-xl p-2'>

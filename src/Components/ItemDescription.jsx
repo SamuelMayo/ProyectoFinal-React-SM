@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import ItemCount from './ItemCount'
 import {Link} from 'react-router-dom'
+import { contextCart } from './CartContext'
 
 
 const ItemDescription = ({product}) => {
@@ -9,13 +10,16 @@ const ItemDescription = ({product}) => {
 
   const [quantity, setQuantity] = useState(1)
 
-  const [cartlist, setCartlist] = useState([])
+  const [addProducts]= useContext(contextCart)
+
+  product.quantity=quantity
 
   const onAdd = ()=>{
     setCounter(false)
-    setQuantity()
-    setCartlist([...cartlist, product])
+    addProducts(product)
   }
+
+  
 
   return (
     

@@ -32,7 +32,7 @@ const ItemListContainer = () => {
 
   },[itemId] )
 
-  console.log(itemId);
+
     return (
     <div className='w-full flex flex-col items-center'>
 
