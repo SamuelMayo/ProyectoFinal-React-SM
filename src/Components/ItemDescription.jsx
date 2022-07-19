@@ -10,7 +10,7 @@ const ItemDescription = ({product}) => {
 
   const [quantity, setQuantity] = useState(1)
 
-  const [addProducts]= useContext(contextCart)
+  const {addProducts}= useContext(contextCart)
 
   product.quantity=quantity
 

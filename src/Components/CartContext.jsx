@@ -48,7 +48,7 @@ const CartContext = ({children}) => {
     // console.log(cartList);
 
     return (
-    <Provider value={[addProducts,{cartList}]}>
+    <Provider value={{addProducts,cartList}}>
         {children}
     </Provider>
     )
