@@ -1,8 +1,10 @@
-import { height } from '@mui/system'
 import logo from '../icons-imgs/logo.png'
 import CartWidget from './CartWidget'
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import {db} from '../firebase/firebase.js'
+import {getDocs, collection} from 'firebase/firestore'
+
 
 
 
@@ -10,19 +12,22 @@ const NavBar =() =>{
 
     const [categories, setCategories]= useState([])
 
+
     useEffect(()=>{
 
-        async function categoriesPromise(){
-            try{
-                const response = await fetch('https://api.escuelajs.co/api/v1/categories')
-                const result = await response.json();
-                setCategories(result)
-            }
-            catch(err){
-                console.log(err);
-            }
+    const productCollection= collection(db, 'categories')
+    getDocs(productCollection)
+    .then(result=>{
+    const listCategories= result.docs.map(doc=>{
+        return {
+            id: doc.id,
+            ...doc.data(),
         }
-        categoriesPromise()
+    })
+    setCategories(listCategories)
+    })
+    .catch(err=> console.log(err))  
+
     }, [])
 
 
@@ -34,7 +39,7 @@ const NavBar =() =>{
             </div>
             <nav style={styles.navCont}>
                 {categories.map((category)=>{
-                    return <Link key={category.id} style={styles.a} to={`/category/${category.id}`}>{category.name}</Link>
+                    return <Link key={category.id} style={styles.a} to={`/category/${category.name}`}>{category.name}</Link>
                 })}
             </nav>
 

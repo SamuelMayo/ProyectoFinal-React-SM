@@ -1,8 +1,9 @@
-import { ponyfillGlobal } from '@mui/utils'
 import React, {useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { ClimbingBoxLoader } from 'react-spinners'
 import ItemDescription from '../Components/ItemDescription.jsx'
+import {db} from '../firebase/firebase.js'
+import {getDoc, collection, doc } from 'firebase/firestore'
 
 
 
@@ -12,23 +13,25 @@ const ItemListContainer = () => {
 
   const [loading, setLoading] = useState(false)
   const [product, setProduct]= useState({})
-  const URL = `https://api.escuelajs.co/api/v1/products/${itemId}`
+
   useEffect(()=>{
-    async function resultPromise(){
-      setLoading(true)
-      try{
-        const response= await fetch(URL);
-        const result = await response.json();
-        setProduct(result)
-        setLoading(false)
+
+    setLoading(true)
+    const productCollection= collection(db, 'productos')
+    const refDoc= doc(productCollection, `${itemId}`)
+    getDoc(refDoc)
+    .then(result=>{
+      const prod = {
+        id: result.id ,
+        ...result.data()
       }
-      catch(err){
-        console.log(err);
-        alert("Ha ocurrido un error")
-      }
-      
-    }
-    resultPromise()
+      setProduct(prod);
+      console.log(result.data());
+    })
+    .catch(err=>console.log(err))
+    .finally(()=>{
+      setLoading(false)
+    })
 
   },[itemId] )
 
