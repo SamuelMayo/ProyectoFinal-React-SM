@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { ClimbingBoxLoader } from 'react-spinners'
 import ItemDescription from '../Components/ItemDescription.jsx'
 import {db} from '../firebase/firebase.js'
-import {getDoc, collection, doc } from 'firebase/firestore'
+import {getDocs, collection, where, query } from 'firebase/firestore'
 
 
 
@@ -16,14 +16,13 @@ const ItemListContainer = () => {
 
   useEffect(()=>{
 
-    setLoading(true)
-    const productCollection= collection(db, 'productos')
-    const refDoc= doc(productCollection, `${itemId}`)
-    getDoc(refDoc)
+    setLoading(true) 
+    const refDoc= query(collection(db, 'productos'), where('id' ,'==', `${itemId}`))
+    getDocs(refDoc)
     .then(result=>{
       const prod = {
-        id: result.id ,
-        ...result.data()
+        id: result.docs[0].id ,
+        ...result.docs[0].data()
       }
       setProduct(prod);
       console.log(result.data());

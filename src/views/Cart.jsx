@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom'
 
 const Cart = () => {
 
-  const {cartList}= useContext(contextCart)
-  const {totalPrice}=useContext(contextCart)
+  const {cartList, totalPrice}= useContext(contextCart)
+
 
   return (
     <>  
@@ -29,6 +29,8 @@ const Cart = () => {
           })}
 
           <h3 className='text-end mr-52 py-5 pr-24 font-bold'>{`Total a Pagar: $${totalPrice}`}</h3>
+          <Link to={'/checkout'}> <button>Finalizar Compra</button></Link>
+
         </div>
       }
   </>

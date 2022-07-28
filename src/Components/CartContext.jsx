@@ -1,7 +1,6 @@
 import React, {useState,createContext} from 'react'
 import { useEffect } from 'react'
 
-
 export const contextCart=createContext()
 const {Provider} = contextCart
 
@@ -9,6 +8,8 @@ const CartContext = ({children}) => {
 
     const [cartList, setCartlist]= useState([])
     const [totalProducts, setTotalProducts]=useState(0)
+    const [totalPrice, setTotalPrice] =useState(0)
+    const [idSale, setIdSale] = useState('')
 
     const quantityTotalProducts=()=>{
         let count=0
@@ -22,6 +23,7 @@ const CartContext = ({children}) => {
 
     useEffect(()=>{
         quantityTotalProducts();
+        calcPrice();
     } , [cartList] )
     
     const addProducts=(product)=>{
@@ -48,17 +50,13 @@ const CartContext = ({children}) => {
     }
 
     const clear= ()=>{
-
         setCartlist([])
-
     }
 
     const isInCart=(id)=>{
-
         cartList.some(product=>product.id===id)
     }
 
-    const [totalPrice, setTotalPrice] =useState(0)
 
     const calcPrice= ()=>{
         let count = 0 
@@ -68,13 +66,10 @@ const CartContext = ({children}) => {
         setTotalPrice(count)
     }
 
-    useEffect(()=>{
-        calcPrice()
-    }, [cartList])
 
-
+    
     return (
-    <Provider value={{addProducts,cartList, totalProducts,removeItem,clear, totalPrice}}>
+    <Provider value={{addProducts, cartList, totalProducts, removeItem, clear, totalPrice, setIdSale, idSale}}>
         {children}
     </Provider>
     )

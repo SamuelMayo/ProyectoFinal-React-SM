@@ -9,9 +9,10 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CartContext from './Components/CartContext.jsx';
+import CartContext from './Components/CartContext';
+import Checkout from './views/Checkout'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path='/category/:categoryName' element={<ItemListContainer/>}></Route>
             <Route path='/item/:itemId' element={<ItemDescriptionContainer/>}></Route>
             <Route path='/cart' element={<Cart/>}></Route>
+            <Route path='/checkout' element={<Checkout/>}></Route>
           </Routes>
         </CartContext>
         <ToastContainer />

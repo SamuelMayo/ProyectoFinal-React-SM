@@ -20,7 +20,7 @@ const ItemListContainer = ({mensaje}) => {
 
     setLoading(true)
     const productCollection= collection(db, 'productos')
-    const q = query(productCollection, where('category', '==', `${categoryName}` ))
+    const q = query(productCollection, where('category.name', '==', `${categoryName}` ))
     const filter= categoryName ? q : productCollection ;
 
     getDocs(filter)
@@ -30,7 +30,6 @@ const ItemListContainer = ({mensaje}) => {
           id: doc.id,
           ...doc.data(),
         }
-        
       })
       setProduct(list)
     })
