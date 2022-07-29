@@ -33,10 +33,10 @@ const NavBar =() =>{
 
     return(
         <header style={styles.container}>
-            <div style={styles.titleCont}>
-                <Link to="/"><img style={styles.imgLogo} src={logo} alt="Logo" /></Link>
+            <Link to="/"><div style={styles.titleCont}>
+                <img style={styles.imgLogo} src={logo} alt="Logo" />
                 <h1 style={styles.h1Logo}>VendeLoTuyo.com</h1>
-            </div>
+            </div></Link>
             <nav style={styles.navCont}>
                 {categories.map((category)=>{
                     return <Link key={category.id} style={styles.a} to={`/category/${category.name}`}>{category.name}</Link>

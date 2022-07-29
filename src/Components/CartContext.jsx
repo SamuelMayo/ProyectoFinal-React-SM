@@ -54,7 +54,7 @@ const CartContext = ({children}) => {
     }
 
     const isInCart=(id)=>{
-        cartList.some(product=>product.id===id)
+        cartList.some(product=>product.id==id)
     }
 
 
