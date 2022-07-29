@@ -17,7 +17,7 @@ const ItemListContainer = () => {
   useEffect(()=>{
 
     setLoading(true) 
-    const refDoc= query(collection(db, 'productos'), where('id' ,'==', `${itemId}`))
+    const refDoc= query(collection(db, 'productos'), where('id' ,'==', +`${itemId}`))
     getDocs(refDoc)
     .then(result=>{
       const prod = {

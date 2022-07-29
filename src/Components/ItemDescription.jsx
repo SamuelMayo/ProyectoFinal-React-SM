@@ -40,7 +40,7 @@ const ItemDescription = ({product}) => {
                 
                 <p>{product.description}</p>
 
-                {counter ? <ItemCount onAdd={onAdd} stock={5} setQuantity={setQuantity}/> : <Link to={'/cart'}><button className='w-4/5 bg-blue-600 text-white my-2 rounded-md mt-5'>Terminar Mi compra</button></Link> }
+                {counter ? <ItemCount onAdd={onAdd} stock={5} setQuantity={setQuantity}/> : <Link to={'/cart'}><button className='w-4/5 h-10 bg-blue-600 text-white my-2 rounded-md mt-5'>Terminar Mi compra</button></Link> }
                 
             </div>
         </div>
