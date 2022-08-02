@@ -27,11 +27,13 @@ const CartContext = ({children}) => {
     } , [cartList] )
     
     const addProducts=(product)=>{
+        
         if(isInCart(product.id)){
 
-            const aux= [...cartList]
-            const found = aux.find(prod=>prod.id===product.id)
-            found.quantity+= product.quantity
+            const found = cartList.find(prod=>prod.id===product.id);
+            const index = cartList.indexOf(found);
+            const aux= [...cartList];
+            aux[index].quantity+=product.quantity;
             
             setCartlist(aux)
         }else{
@@ -54,7 +56,7 @@ const CartContext = ({children}) => {
     }
 
     const isInCart=(id)=>{
-        cartList.some(product=>product.id==id)
+        return cartList.some(product=>product.id === id)
     }
 
 

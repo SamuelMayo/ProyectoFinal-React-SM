@@ -25,7 +25,6 @@ const ItemListContainer = () => {
         ...result.docs[0].data()
       }
       setProduct(prod);
-      console.log(result.data());
     })
     .catch(err=>console.log(err))
     .finally(()=>{
