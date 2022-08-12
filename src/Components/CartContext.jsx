@@ -1,79 +1,60 @@
-import React, {useState,createContext} from 'react'
+import React, { useState, createContext } from 'react'
 import { useEffect } from 'react'
 
-export const contextCart=createContext()
-const {Provider} = contextCart
 
-const CartContext = ({children}) => {
+export const contextCart = createContext()
+const { Provider } = contextCart
 
-    const [cartList, setCartlist]= useState([])
-    const [totalProducts, setTotalProducts]=useState(0)
-    const [totalPrice, setTotalPrice] =useState(0)
-    const [idSale, setIdSale] = useState('')
+const CartContext = ({ children }) => {
 
-    const quantityTotalProducts=()=>{
-        let count=0
+    const [cartList, setCartlist] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0)
 
-        cartList.forEach(product=>{
-            count+=product.quantity;
-        })
-        setTotalProducts(count)
-    }
+    useEffect(() => {
+        showStorage();
+    }, [])
 
-
-    useEffect(()=>{
-        quantityTotalProducts();
-        calcPrice();
-    } , [cartList] )
-    
-    const addProducts=(product)=>{
-        
-        if(isInCart(product.id)){
-
-            const found = cartList.find(prod=>prod.id===product.id);
-            const index = cartList.indexOf(found);
-            const aux= [...cartList];
-            aux[index].quantity+=product.quantity;
-            
-            setCartlist(aux)
-        }else{
-
-            setCartlist([...cartList, product])
+    const addProducts = (product) => {
+        let item = cartList.find(prod => prod.id === product.id)
+        let aux = [...cartList]
+        if (item) {
+            let index = aux.indexOf(item)
+            aux[index].quantity += product.quantity
+        } else {
+            aux = [...cartList, product]
         }
-    }
-    
-    const removeItem=(product)=>{
-
-        let aux =[...cartList]
-        const found= aux.find(aux=> aux.id === product.id )
-        aux= aux.filter(product=>product.id !== found.id)
-
         setCartlist(aux)
+        sincroStorage(aux);
     }
 
-    const clear= ()=>{
+    const removeItem = (product) => {
+        let aux = [...cartList]
+        const found = aux.find(aux => aux.id === product.id)
+        aux = aux.filter(product => product.id !== found.id)
+        setCartlist(aux)
+        sincroStorage(aux);
+    }
+
+    const clear = () => {
         setCartlist([])
-    }
-
-    const isInCart=(id)=>{
-        return cartList.some(product=>product.id === id)
-    }
-
-
-    const calcPrice= ()=>{
-        let count = 0 
-        cartList.forEach(product => {
-        count += product.price*product.quantity
-        });
-        setTotalPrice(count)
+        let aux = []
+        sincroStorage(aux)
     }
 
 
-    
+    const sincroStorage = (cart) => {
+        localStorage.setItem('prod', JSON.stringify(cart))
+    }
+
+
+    const showStorage = () => {
+        setCartlist(JSON.parse(localStorage.getItem('prod')) || [])
+    }
+
     return (
-    <Provider value={{addProducts, cartList, totalProducts, removeItem, clear, totalPrice, setIdSale, idSale}}>
-        {children}
-    </Provider>
+        <Provider value={{ addProducts, cartList, removeItem, clear, totalPrice, setTotalPrice }}>
+            {children}
+        </Provider>
     )
 }
 

@@ -1,44 +1,44 @@
-import React, {useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ClimbingBoxLoader } from 'react-spinners'
 import ItemDescription from '../Components/ItemDescription.jsx'
-import {db} from '../firebase/firebase.js'
-import {getDocs, collection, where, query } from 'firebase/firestore'
+import { db } from '../firebase/firebase.js'
+import { getDocs, collection, where, query } from 'firebase/firestore'
 
 
 
 const ItemListContainer = () => {
 
-  const {itemId}=useParams()
+  const { itemId } = useParams()
 
   const [loading, setLoading] = useState(false)
-  const [product, setProduct]= useState({})
+  const [product, setProduct] = useState({})
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    setLoading(true) 
-    const refDoc= query(collection(db, 'productos'), where('id' ,'==', +`${itemId}`))
+    setLoading(true)
+    const refDoc = query(collection(db, 'productos'), where('id', '==', +`${itemId}`))
     getDocs(refDoc)
-    .then(result=>{
-      const prod = {
-        id: result.docs[0].id ,
-        ...result.docs[0].data()
-      }
-      setProduct(prod);
-    })
-    .catch(err=>console.log(err))
-    .finally(()=>{
-      setLoading(false)
-    })
+      .then(result => {
+        const prod = {
+          id: result.docs[0].id,
+          ...result.docs[0].data()
+        }
+        setProduct(prod);
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setLoading(false)
+      })
 
-  },[itemId] )
+  }, [itemId])
 
 
-    return (
+  return (
     <div className='w-full flex flex-col items-center'>
 
-        {loading ? <ClimbingBoxLoader /> : <ItemDescription product={product} />}
-      
+      {loading ? <ClimbingBoxLoader /> : <ItemDescription product={product} />}
+
     </div>
   )
 }

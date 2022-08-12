@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { contextCart } from '../Components/CartContext'
 import ItemCart from '../Components/ItemCart.jsx'
 import { Link } from 'react-router-dom'
@@ -6,7 +6,21 @@ import { Link } from 'react-router-dom'
 
 const Cart = () => {
 
-  const { cartList, totalPrice } = useContext(contextCart)
+  const { cartList, totalPrice, setTotalPrice } = useContext(contextCart)
+
+  useEffect(() => {
+
+    const calcPrice = () => {
+      let count = 0
+      cartList.forEach(product => {
+        count += product.price * product.quantity
+      });
+      setTotalPrice(count)
+    }
+
+    calcPrice();
+
+  }, [cartList])
 
 
   return (

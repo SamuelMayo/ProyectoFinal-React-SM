@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CartContext from './Components/CartContext';
 import Checkout from './views/Checkout'
+import FavContext from './Components/FavContext';
 
 function App() {
   return (
@@ -27,20 +28,22 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        />
+      />
       {/* Same as */}
       <ToastContainer />
-        <CartContext>
+      <CartContext>
+        <FavContext>
           <NavBar />
           <Routes>
-            <Route path='/' element={<ItemListContainer/>}></Route>
-            <Route path='/category/:categoryName' element={<ItemListContainer/>}></Route>
-            <Route path='/item/:itemId' element={<ItemDescriptionContainer/>}></Route>
-            <Route path='/cart' element={<Cart/>}></Route>
-            <Route path='/checkout' element={<Checkout/>}></Route>
+            <Route path='/' element={<ItemListContainer />}></Route>
+            <Route path='/category/:categoryName' element={<ItemListContainer />}></Route>
+            <Route path='/item/:itemId' element={<ItemDescriptionContainer />}></Route>
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/checkout' element={<Checkout />}></Route>
           </Routes>
-        </CartContext>
-        <ToastContainer />
+        </FavContext>
+      </CartContext>
+      <ToastContainer />
     </BrowserRouter>
   );
 }
